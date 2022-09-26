@@ -51,5 +51,7 @@ type Logger interface {
     Fatal(msg string, fields ...zapcore.Field)
     
     With(fields ...zapcore.Field) Logger
+
+    Println(v ...interface{})
 }
 ```

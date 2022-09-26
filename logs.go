@@ -23,6 +23,8 @@ type Logger interface {
 	With(fields ...zapcore.Field) Logger
 
 	Ctx(ctx context.Context) Logger
+
+	Println(v ...interface{})
 }
 
 type logger struct {
@@ -59,6 +61,10 @@ func (l *logger) Fatal(msg string, fields ...zapcore.Field) {
 	fields = l.withStack(zapcore.FatalLevel, fields...)
 
 	l.zapLogger.Fatal(msg, fields...)
+}
+
+func (l *logger) Println(v ...interface{}) {
+	l.zapLogger.Debug("println", zap.Any("content", v))
 }
 
 func (l *logger) With(fields ...zapcore.Field) Logger {
